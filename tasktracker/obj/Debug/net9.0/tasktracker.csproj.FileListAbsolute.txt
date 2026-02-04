@@ -7,6 +7,7 @@ D:\Projects\roadmap.sh\tasktrackercli\tasktracker\obj\Debug\net9.0\tasktracker.G
 D:\Projects\roadmap.sh\tasktrackercli\tasktracker\obj\Debug\net9.0\tasktracker.AssemblyInfoInputs.cache
 D:\Projects\roadmap.sh\tasktrackercli\tasktracker\obj\Debug\net9.0\tasktracker.AssemblyInfo.cs
 D:\Projects\roadmap.sh\tasktrackercli\tasktracker\obj\Debug\net9.0\tasktracker.csproj.CoreCompileInputs.cache
+D:\Projects\roadmap.sh\tasktrackercli\tasktracker\obj\Debug\net9.0\tasktracker.sourcelink.json
 D:\Projects\roadmap.sh\tasktrackercli\tasktracker\obj\Debug\net9.0\tasktracker.dll
 D:\Projects\roadmap.sh\tasktrackercli\tasktracker\obj\Debug\net9.0\refint\tasktracker.dll
 D:\Projects\roadmap.sh\tasktrackercli\tasktracker\obj\Debug\net9.0\tasktracker.pdb

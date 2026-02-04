@@ -20,12 +20,11 @@ public class Tasks
         TaskList = tasks;
     }
 
-    public void AddTask(string taskName)
+    public string AddTask(string taskName)
     {
         if(string.IsNullOrWhiteSpace(taskName))
         {
-            Console.WriteLine("Task name cannot be empty.");
-            return;
+            return "Task name cannot be empty.";
         }
 
         // LoadTasksFromFile();
@@ -47,24 +46,65 @@ public class Tasks
         }
         
         SaveTasksToFile(NewTasks);
-        Console.WriteLine($"Task '{taskName}' added successfully!");
+        return $"Task '{taskName}' added successfully!";
     }
 
-    public void RemoveTask(string taskName)
+    public void RemoveTask(int taskNo)
     {
         // Implementation for removing a task
+        string folderPath = Path.Combine(_currentDirectory, folderName);
+        string tasksFilePath = Path.Combine(folderPath, fileName);
+
+        // Implementation for editing a task
+        if(TaskList.Count == 0)
+        {
+            Console.WriteLine("No tasks available to edit.");
+            return;
+        }
+
+        var task = TaskList[taskNo];
+
+        if (TaskList.ContainsKey(taskNo))
+        {
+            TaskList.Remove(taskNo);
+
+            var lines = File.ReadAllLines(tasksFilePath).ToList();
+
+            for(int i = 0; i<lines.Count; i++)
+            {
+                if(lines[i].StartsWith($"{taskNo}:"))
+                {
+                    lines.RemoveAt(i);
+                    break;
+                }
+            }
+
+            File.WriteAllLines(tasksFilePath, lines);
+
+            Console.Clear();
+            Console.WriteLine($"Task {task} removed successfully!");
+            Console.WriteLine("=================================================");
+            Console.WriteLine();
+        }
+        else
+        {
+            Console.WriteLine("Task number not found.");
+            return;
+        }
+        
     }
 
-    public Dictionary<int, string> ListTasks()
+    public string ListTasks()
     {
         // LoadTasksFromFile();
 
+        TASKS_LISTS:
         if(TaskList.Count == 0)
         {
-            Console.WriteLine("No tasks available.");
-            return TaskList;
+            return "No tasks available.";
         }
 
+        
         Console.WriteLine("Current Tasks:");
         Console.WriteLine("==============");
         Console.WriteLine("Select a task to edit, delete or mark as complete:");
@@ -95,22 +135,27 @@ public class Tasks
                     EditTask(taskNo, newTaskName);
                     break;
                 case 2:
-                    RemoveTask(TaskList[taskNo]);
+                    RemoveTask(taskNo);
                     break;
                 case 3:
                     CompleteTask(TaskList[taskNo]);
                     break;
                 default:
                     Console.WriteLine("Invalid option selected.");
-                    break;
+                    goto RETURN_TASKS;
             }
+
+            goto TASKS_LISTS;
+
+            RETURN_TASKS:
+            return string.Empty;
         }
         else
         {
             Console.WriteLine("Invalid task number selected.");
         }   
 
-        return TaskList;
+        return string.Empty;
     }
 
     public void CompleteTask(string taskName)

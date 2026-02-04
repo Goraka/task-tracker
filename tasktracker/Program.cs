@@ -24,6 +24,8 @@ MENU:
 Console.Write("Select an option : ");
 int option = Convert.ToInt32(Console.ReadLine());
 
+string msg = "";
+
 switch (option)
 {
     case 0: // Exit
@@ -32,11 +34,11 @@ switch (option)
         Console.Clear();
         Console.Write("Enter task name: ");
         string taskName = Console.ReadLine() ?? string.Empty;
-        taskManager.AddTask(taskName);
+        msg = taskManager.AddTask(taskName);
         break;
     case 2: // List Tasks
         Console.Clear();
-        taskManager.ListTasks();
+        msg = taskManager.ListTasks();
         break;
     default:
         Console.WriteLine("Invalid option selected.");
@@ -44,6 +46,10 @@ switch (option)
 }
 
 Console.Clear();
+
+Console.WriteLine(msg);
+Console.WriteLine("========================================");
+Console.WriteLine();
 
 goto MENU;
 
