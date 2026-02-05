@@ -115,13 +115,20 @@ public class Tasks
         }
 
         Console.WriteLine("==============");
-        Console.Write("Enter the task number: ");
+        Console.Write("Enter the task number or press 0 to return: ");
         int taskNo = Convert.ToInt32(Console.ReadLine());
+
+        if(taskNo == 0)
+        {
+            return string.Empty;
+        }
 
         if(TaskList.ContainsKey(taskNo))
         {
+            Console.Clear();
             Console.WriteLine($"You selected task: {TaskList[taskNo]}");
             Console.WriteLine("Options:");
+            Console.WriteLine("0. Return to Main Menu");
             Console.WriteLine("1. Edit Task");
             Console.WriteLine("2. Delete Task");
             Console.WriteLine("3. Mark as Complete");
@@ -129,6 +136,8 @@ public class Tasks
             int option = Convert.ToInt32(Console.ReadLine());
             switch (option)
             {
+                case 0:
+                    goto TASKS_LISTS;
                 case 1:
                     Console.Write("Enter new task name: ");
                     string newTaskName = Console.ReadLine() ?? string.Empty;
@@ -224,8 +233,6 @@ public class Tasks
                 {
                     writer.WriteLine($"{task.Key}:{task.Value}");
                 }
-
-                writer.Close();
             }
         }
     }
@@ -254,8 +261,6 @@ public class Tasks
                     
                 }
             }
-
-            reader.Close();
 
             return TaskList;
         }

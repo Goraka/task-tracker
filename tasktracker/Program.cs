@@ -1,4 +1,7 @@
 ﻿
+Tasks taskManager = new Tasks();
+
+MENU:
 ASCII.PrintWelcome();
 ASCII.PrintName();
 ASCII.PrintArt();
@@ -14,12 +17,9 @@ Console.WriteLine();
 Console.WriteLine("Add a new task below:");
 // Dictionary<int, string> tasksList = new Dictionary<int, string>();
 
-Tasks taskManager = new Tasks();
-
-MENU:
-    Console.WriteLine("1. Add Task");
-    Console.WriteLine("2. List Tasks");
-    Console.WriteLine("0. Exit");
+Console.WriteLine("1. Add Task");
+Console.WriteLine("2. List Tasks");
+Console.WriteLine("0. Exit");
 
 Console.Write("Select an option : ");
 int option = Convert.ToInt32(Console.ReadLine());
