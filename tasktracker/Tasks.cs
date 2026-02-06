@@ -147,7 +147,7 @@ public class Tasks
                     RemoveTask(taskNo);
                     break;
                 case 3:
-                    CompleteTask(TaskList[taskNo]);
+                    CompleteTask(taskNo);
                     break;
                 default:
                     Console.WriteLine("Invalid option selected.");
@@ -167,9 +167,42 @@ public class Tasks
         return string.Empty;
     }
 
-    public void CompleteTask(string taskName)
+    public void CompleteTask(int taskNo)
     {
         // Implementation for marking a task as complete
+        string folderPath = Path.Combine(_currentDirectory, folderName);
+        string tasksFilePath = Path.Combine(folderPath, fileName);
+
+        // Implementation for editing a task
+        if(TaskList.Count == 0)
+        {
+            Console.WriteLine("No tasks available to edit.");
+            return;
+        }
+
+        if (TaskList.ContainsKey(taskNo))
+        {
+            TaskList[taskNo] = TaskList[taskNo] + " (Completed)";
+            var lines = File.ReadAllLines(tasksFilePath).ToList();
+
+            for(int i = 0; i<lines.Count; i++)
+            {
+                if(lines[i].StartsWith($"{taskNo}:"))
+                {
+                    lines[i] = $"{taskNo}:{TaskList[taskNo]}";
+                    break;
+                }
+            }
+
+            File.WriteAllLines(tasksFilePath, lines);
+
+            Console.WriteLine($"Task number {taskNo} completed!");
+        }
+        else
+        {
+            Console.WriteLine("Task number not found.");
+            return;
+        }
     }
 
     public void EditTask(int taskNo, string newTaskName)
